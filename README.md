@@ -34,9 +34,11 @@ Summation & Scaling: The 64-bit sum is arithmetically right-shifted (by 28 bits)
 
 ## Simulation Results
 The design was verified using Vivado Simulator (XSIM). The testbench generates a sinusoidal signal to demonstrate the filter's behavior.
-Right-click m_axis_fir_tdata -->rightarrow$ Radix -->rightarrow$ Signed Decimal.
-Right-click m_axis_fir_tdata -->rightarrow$ Waveform Style -->rightarrow$ Analog.
-Right-click --> rightarrow--> Analog Settings -->rightarrow$ Ensure Auto-scale is selected.
+Right-click m_axis_fir_tdata -->rightarrow Radix -->rightarrow Signed Decimal.
+
+Right-click m_axis_fir_tdata -->rightarrow Waveform Style -->rightarrow$ Analog.
+
+Right-click --> rightarrow--> Analog Settings -->rightarrow Ensure Auto-scale is selected.
 
 ### Waveform Verification
 Input: 32-bit signed sinusoid.
