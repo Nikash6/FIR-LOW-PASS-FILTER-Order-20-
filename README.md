@@ -7,7 +7,27 @@ A high-precision, 20-tap Finite Impulse Response (FIR) filter designed in Verilo
 This repository contains the RTL design and testbench for a low-pass FIR filter. The design focuses on maintaining signal integrity by managing bit growth during the Multiply-Accumulate (MAC) stages to avoid truncation errors.
 
 PASS Band frequency (Fp) = 200 Hz and Sampling Frequency (f) = 1000 hz
-## Mathematical Foundation### Transfer FunctionThe filter coefficients are derived from the following Z-domain transfer function:$$H(z) = \sum_{n=0}^{19} b_n z^{-n}$$The specific fractional coefficients (e.g., $b_{10} = 0.3723$, $b_{11} = 0.1915$) were generated using the Hamming Window method to minimize sidelobe levels.### Fixed-Point QuantizationTo implement these on hardware, the fractional coefficients were scaled to 32-bit integers using a quantization factor of $2^{20}$:$Tap_{Hex} = \text{round}(b_n \times 2^{20})$This ensures that the hardware can perform high-speed integer multiplications while maintaining the precision of the original filter response.
+## Mathematical Foundation### Transfer FunctionThe filter coefficients are derived from the following Z-domain transfer function
+The specific fractional coefficients (e.g., $b_{10} = 0.3723$, $b_{11} = 0.1915$) were generated using the Hamming Window method to minimize sidelobe levels.### Fixed-Point QuantizationTo implement these on hardware, the fractional coefficients were scaled to 32-bit integers using a quantization factor of This ensures that the hardware can perform high-speed integer multiplications while maintaining the precision of the original filter response.
+Usually, you have to decide how many bits in the register you want to dedicate to the integer part of the number vs the fractional part of the number. Therefore the math to convert the fractional value taps is:(fractional coefficient value)*(2^(20))
+Where any decimal value of this product is rounded off and the two's compliment of the value is calculated if the coefficient is negative:
+tap0 = twos(-0.0016 * 1048576) = 0x0000F973
+tap1 = twos(-0.0037 * 2^20) = 0x0000F0D9
+tap2 = (0.0135 * 2^20) = 0x00000068
+.
+.
+.
+.
+.
+.
+.
+tap19=......
+Transfer function 'ha' from input 'u1' to output ...
+
+ y1:  -0.001643 z^19 - 0.003716 z^18 + 0.0001734 z^17 + 0.01356 z^16 + 0.01423 z^15 - 0.02456 z^14 - 0.06267 z^13 + 0.0008343 z^12 + 0.1915 z^11 + 0.3723 z^10
+ + 0.3723 z^9 + 0.1915 z^8 + 0.0008343 z^7 - 0.06267 z^6 - 0.02456 z^5 + 0.01423 z^4 + 0.01356 z^3 + 0.0001734 z^2 - 0.003716 z - 0.001643
+
+
 
 ### Key Features
 Order-20 Filter: 20 symmetric tap coefficients for efficient frequency response.
