@@ -1,4 +1,4 @@
-# FIR-LOW-PASS-FILTER-Order-20-
+# FIR-LOW-PASS-FILTER-Order-20- Using **VERILOG** 
 Fir low pass filter of order 20 in verilog 
 20-Tap Digital FIR Filter in Verilog
 A high-precision, 20-tap Finite Impulse Response (FIR) filter designed in Verilog for FPGA implementation. This project demonstrates fixed-point arithmetic, AXI-Stream interface compliance, and hardware-efficient signal processing.
