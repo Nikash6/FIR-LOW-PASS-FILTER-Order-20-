@@ -6,6 +6,9 @@ A high-precision, 20-tap Finite Impulse Response (FIR) filter designed in Verilo
 ## Project Overview
 This repository contains the RTL design and testbench for a low-pass FIR filter. The design focuses on maintaining signal integrity by managing bit growth during the Multiply-Accumulate (MAC) stages to avoid truncation errors.
 
+PASS Band frequency (Fp) = 200 Hz and Sampling Frequency (f) = 1000 hz
+## Mathematical Foundation### Transfer FunctionThe filter coefficients are derived from the following Z-domain transfer function:$$H(z) = \sum_{n=0}^{19} b_n z^{-n}$$The specific fractional coefficients (e.g., $b_{10} = 0.3723$, $b_{11} = 0.1915$) were generated using the Hamming Window method to minimize sidelobe levels.### Fixed-Point QuantizationTo implement these on hardware, the fractional coefficients were scaled to 32-bit integers using a quantization factor of $2^{20}$:$Tap_{Hex} = \text{round}(b_n \times 2^{20})$This ensures that the hardware can perform high-speed integer multiplications while maintaining the precision of the original filter response.
+
 ### Key Features
 Order-20 Filter: 20 symmetric tap coefficients for efficient frequency response.
 
